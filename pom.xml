@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.sarsila</groupId>
-	<artifactId>goGame</artifactId>
+	<artifactId>go</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -53,6 +53,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	
-
 </project>
