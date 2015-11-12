@@ -39,7 +39,8 @@
             var column_num = parseInt( $(this).index() ) + 1;
             var row_num = parseInt( $(this).parent().index() )+1;    
  
-            location.href='GoGame/'+row_num + "/" + column_num;
+          //  location.href='GoGame/'+row_num + "/" + column_num;
+            location.href='GoGame?row='+row_num + "&col=" + column_num;
         });
     });
 </script>
@@ -92,6 +93,6 @@
             <td>row 5, col 5</td>
         </tr>
     </table>
-testi
+GAME ID stored in the session= <%= session.getAttribute("id")%>
 </body>
 </html>

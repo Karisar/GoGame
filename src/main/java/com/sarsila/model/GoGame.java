@@ -1,17 +1,21 @@
 package com.sarsila.model;
 
+import org.apache.log4j.Logger;
+
 public class GoGame {
+	
+	final static Logger logger = Logger.getLogger(GoGame.class);
 	private ClickItem[][] array;
 	private Long id;
 	
 	public GoGame(Long id){
 		//TODO: is there any need to get the game from db? propably not?
 		this.id=id;
-		array=new ClickItem[5][5];
+		array=new ClickItem[6][6];
 	}
 	
 	public GoGame() {
-		array=new ClickItem[5][5];
+		array=new ClickItem[6][6];
 	}
 
 	public Long getId() {
@@ -29,7 +33,7 @@ public class GoGame {
 	
 	public void addClick(ClickItem item){
 		array[item.getRow()][item.getColumn()]=item;
-		
+		logger.debug("GoGame.addClick at row" + item);
 	}
 	
 	

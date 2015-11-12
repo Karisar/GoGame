@@ -35,4 +35,8 @@ public class ClickItem {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public String toString(){
+		return "Row:"+row +", column:"+column;
+	}
 }
