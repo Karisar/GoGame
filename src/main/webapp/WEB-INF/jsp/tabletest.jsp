@@ -40,7 +40,6 @@
             var row_num = parseInt( $(this).parent().index() )+1;    
  
             location.href='GoGame/'+row_num + "/" + column_num;
-            $("#result").html( "Row_num =" + row_num + "  ,  Rolumn_num ="+ column_num );   
         });
     });
 </script>

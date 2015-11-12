@@ -11,25 +11,38 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.validation.annotation.Validated;
 
+import com.sarsila.model.*;
+
 @Controller
 public class TableController {
     @RequestMapping(value="/GoGame", method=RequestMethod.GET)
     public String Game(Model model) {
-       // model.addAttribute("greeting", new FormOlio());
-        return "result";
+        GoGame game = new GoGame();
+    	Long id = game.startNewGame();
+    	
+    	//TODO: store game id into http session
+    	
+    	return "tabletest";
     }
     
     //http://stackoverflow.com/questions/13213061/springmvc-requestmapping-for-get-parameters
     @RequestMapping(value="/tabletest", method=RequestMethod.GET)
     public String Test(Model model) {
-       // model.addAttribute("greeting", new FormOlio());
+    	GoGame game = new GoGame();
+    	Long id = game.startNewGame();
         return "tabletest";
+       
     }
     
     @RequestMapping(value="/GoGame/{row}/{column}", method=RequestMethod.GET)
     public String Test(Model model, @PathVariable("row") int row, @PathVariable("column") int column) {
-       // model.addAttribute("greeting", new FormOlio());
+  
+    	Long id = new Long(123); //TODO: get id from httpsession
+    	GoGame game = new GoGame(id);
     	
-        return "tabletest";
+    	ClickItem item = new ClickItem(row, column);
+    	game.addClick(item);
+    	
+    	return "tabletest";
     }
 }
