@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.validation.annotation.Validated;
 
 import com.sarsila.model.*;
+import com.sarsila.model.dao.*;
 
 @Controller
 public class TableController {
@@ -35,9 +36,10 @@ public class TableController {
     @RequestMapping(value="/start", method=RequestMethod.GET)
     public String Test(Model model, HttpServletRequest request) {
     	GoGame game = new GoGame();
-    	Long id = game.startNewGame();
-    	request.getSession().setAttribute("id", id);
-        return "tabletest";
+    	GoGameDao dao = new GoGameSQLDaoImpl(); //TODO: refactor,move this to gogamedao
+    	Long id = dao.saveNewGame(game);
+    	request.getSession().setAttribute("game", game);
+    	return "tabletest";
        
     }
     
@@ -52,9 +54,7 @@ public class TableController {
     @RequestMapping(value="/GoGame", method=RequestMethod.GET)
     public String Receive(Model model, @RequestParam("row") int row, @RequestParam("col") int column, HttpServletRequest request) {
   
-    	//Long id = new Long(123); //TODO: get id from httpsession
-    	Long id = new Long((Long)request.getSession().getAttribute("id"));
-    	GoGame game = new GoGame(id);
+    	GoGame game = (GoGame)request.getSession().getAttribute("game");
     	
     	ClickItem item = new ClickItem(row, column);
     	game.addClick(item);

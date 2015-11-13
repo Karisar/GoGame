@@ -93,6 +93,6 @@
             <td>row 5, col 5</td>
         </tr>
     </table>
-GAME ID stored in the session= <%= session.getAttribute("id")%>
+ID stored in the session= <%= session.getAttribute("id")%>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.sarsila.model;
 
 import org.apache.log4j.Logger;
+import com.sarsila.model.dao.*;
 
 public class GoGame {
 	
@@ -33,7 +34,11 @@ public class GoGame {
 	
 	public void addClick(ClickItem item){
 		array[item.getRow()][item.getColumn()]=item;
-		logger.debug("GoGame.addClick at row" + item);
+		
+		ClickItemDao dao = new ClickItemSQLDaoImpl();
+		dao.saveClickItem(this, item);
+		//TODO: save to dao
+		
 	}
 	
 	
