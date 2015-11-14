@@ -71,52 +71,70 @@ public class GoGame {
 	}
 	
 	public void analyzeAndClean(){ //TODO: maybe this could be separated into its own class
-		for (int row=1;row<=18;row++) // rows
+		for (int row=1;row<=18;row++) // loop through the rows
 		{
-			for (int col=1;col<=18;col++) //cols
+			for (int col=1;col<=18;col++) // loop through each cell
 			{
 				if (array[row][col] != null) // if the cell is not empty
 				{
 					ClickItem item = array[row][col];
 					boolean surrounded=true;
 					
-					for (int x=-1;x<=1;x++) // upper row
+					// check the upper row
+					for (int x=-1;x<=1;x++) 
 					{
-						if (array[row-1][col+x] == null){
-							surrounded=false;
-							break;
+						if (((col+x)>0) && ((col+x)<18)){ //dont check the cells "outside of the table"
+							if (array[row-1][col+x] == null){
+								surrounded=false;
+								break;
+							}
+							else if (array[row-1][col+x].getTurn() == item.getTurn())
+							{
+								surrounded=false;
+								break;
+							}	
 						}
-						else if (array[row-1][col+x].getTurn() == item.getTurn())
-						{
-							surrounded=false;
-							break;
-						}
+								
+						
 					}	
 					
-					for (int x=-1;x<=1;x++) // lower row
+					// check the lower row
+					for (int x=-1;x<=1;x++) 
 					{
-						if (array[row+1][col+x] == null){
-							surrounded=false;
-							break;
+						if (((col+x)>0) && ((col+x)<19) && ((row+1)<19)){ //dont check the cells "outside of the table"
+
+							if (array[row+1][col+x] == null){
+								surrounded=false;
+								break;
+							}
+							else if (array[row+1][col+x].getTurn() == item.getTurn())
+							{
+								surrounded=false;
+								break;
+							}
 						}
-						else if (array[row+1][col+x].getTurn() == item.getTurn())
-						{
-							surrounded=false;
-							break;
-						}
-					}
-					if ((array[row][col-1] == null)||(array[row][col-1].getTurn() == item.getTurn())){ //on the left
-						surrounded=false;
 					}
 					
-					if ((array[row][col+1] == null)||(array[row][col+1].getTurn() == item.getTurn())){//on the right
-						surrounded=false;
+					//dont check cells outside the table
+					if ((col-1)>0){
+						//check the left side
+						if ((array[row][col-1] == null)||(array[row][col-1].getTurn() == item.getTurn())){ 
+							surrounded=false;
+						}	
 					}
 					
+					//dont check cells outside the table		
+					if ((col+1)<19){
+						//check the right side
+						if ((array[row][col+1] == null)||(array[row][col+1].getTurn() == item.getTurn())){
+							surrounded=false;
+						}
+					}
+					
+					//if totally surrounded, delete
 					if (surrounded==true){
 						deleteClick(item.getRow(), item.getColumn());
 					}
-					
 				}
 			}
 		}
