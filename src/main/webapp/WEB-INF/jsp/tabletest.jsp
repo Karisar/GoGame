@@ -46,6 +46,14 @@
 </head>
 <body>
     <div id="result"> </div>
+    <table align="center" border="1" style="border-collapse: collapse;" cellpadding="8" >
+    <tr>
+    <td onclick="location.href='skip'">SKIP TURN</td>
+    <td onclick="location.href='start'">NEW GAME</td>
+    </tr>
+    </table>
+    <br>
+    <br>
     <table id="gametable"  border="1" style="border-collapse: collapse;" cellpadding="8" align="center">
     	<%@ page import="com.sarsila.model.GoGame" %>
     	<%for(int i=1;i<=5;i++){%>

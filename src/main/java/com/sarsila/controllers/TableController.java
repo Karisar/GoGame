@@ -34,11 +34,7 @@ public class TableController {
     public String Test(Model model, HttpServletRequest request) {
     	GoGame game = new GoGame();
     	Long id = game.startNewGame();
-    //	GoGameDao dao = new GoGameSQLDaoImpl(); //TODO: refactor,move this to gogamedao
-    //	Long id = dao.saveNewGame(game);
-    //	game.turn=1; //black;
     	request.getSession().setAttribute("game", game);
-    	//TODO: the turns
     	return "tabletest";
        
     }
@@ -62,5 +58,12 @@ public class TableController {
     	//TODO: switch turns
     	//TODO: rename "tabletest" into something more appropriate 
     	return "tabletest";
+    }
+    
+    @RequestMapping(value="/skip", method=RequestMethod.GET)
+    public String Skip(Model model, HttpServletRequest request) {
+    	GoGame game = (GoGame)request.getSession().getAttribute("game");
+    	game.switchTurns();
+    	return "tabletest";     
     }
 }
