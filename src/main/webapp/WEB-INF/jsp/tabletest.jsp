@@ -4,7 +4,7 @@
 <!doctype html>
 <html>
 <head>
-<title>Determine Click Position on click of a table cell</title>
+<title>GoGame</title>
 <!--CSS -->
 <style>
     td{

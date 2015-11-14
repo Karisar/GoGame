@@ -31,14 +31,15 @@ public class ClickItemSQLDaoImpl implements ClickItemDao {
 		     statement = connect.createStatement();
 		     // PreparedStatements can use variables and are more efficient
 		     preparedStatement = connect
-		         .prepareStatement("insert into  sql496421.clickitem values (default, ?, ?, ?, ?)");
+		         .prepareStatement("insert into  sql496421.clickitem values (default, ?, ?, ?, ?, ?)");
 		
 		     Date date = new Date();
 
 		     preparedStatement.setString(1, date.toString());
 		     preparedStatement.setString(2, new Long(item.getRow()).toString());
-		     preparedStatement.setString(3, new Long(item.getRow()).toString());
-		     preparedStatement.setString(4, game.getId().toString());
+		     preparedStatement.setString(3, new Long(item.getColumn()).toString());
+		     preparedStatement.setString(4, new Long(game.turn).toString());
+		     preparedStatement.setString(5, game.getId().toString());
 			  
 		     preparedStatement.executeUpdate();
 		     preparedStatement.close();

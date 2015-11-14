@@ -5,11 +5,13 @@ public class ClickItem {
 	private int row;
 	private int column;
 	private Long id;
+	public int turn; //1=black, 2=white
 
 	public ClickItem(Integer row, Integer column){
 		this.row=row;
 		this.column=column;
 		//TODO: save to db
+		//TODO: add turn
 	}
 	
 	public ClickItem(Long id){
@@ -38,5 +40,12 @@ public class ClickItem {
 	
 	public String toString(){
 		return "Row:"+row +", column:"+column;
+	}
+	
+	public String marker(int row, int col)
+	{
+		if (turn==1) return "X";
+		else if (turn==2) return "O";
+		else return null;
 	}
 }

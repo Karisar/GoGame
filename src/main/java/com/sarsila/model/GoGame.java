@@ -1,6 +1,7 @@
 package com.sarsila.model;
 
 import org.apache.log4j.Logger;
+
 import com.sarsila.model.dao.*;
 
 public class GoGame {
@@ -8,6 +9,7 @@ public class GoGame {
 	final static Logger logger = Logger.getLogger(GoGame.class);
 	private ClickItem[][] array;
 	private Long id;
+	public int turn; //1=black, 2=white
 	
 	public GoGame(Long id){
 		//TODO: is there any need to get the game from db? propably not?
@@ -28,8 +30,11 @@ public class GoGame {
 	}
 
 	public Long startNewGame(){
-		//TODO: save new game into db and return its key
-		return new Long(123);
+		turn=1; //start with black
+	   	GoGameDao dao = new GoGameSQLDaoImpl(); //TODO: refactor,move this to gogamedao
+    	Long id = dao.saveNewGame(this);
+ 
+		return id;
 	}
 	
 	public void addClick(ClickItem item){
@@ -37,9 +42,12 @@ public class GoGame {
 		
 		ClickItemDao dao = new ClickItemSQLDaoImpl();
 		dao.saveClickItem(this, item);
-		//TODO: save to dao
-		
+		switchTurns();
 	}
 	
-	
+	public void switchTurns(){
+    	if (turn==1) turn=2;
+    	else turn=1;
+    	
+	}
 }

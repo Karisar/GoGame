@@ -4,12 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.validation.annotation.Validated;
 
 import com.sarsila.model.*;
 import com.sarsila.model.dao.*;
@@ -36,9 +33,12 @@ public class TableController {
     @RequestMapping(value="/start", method=RequestMethod.GET)
     public String Test(Model model, HttpServletRequest request) {
     	GoGame game = new GoGame();
-    	GoGameDao dao = new GoGameSQLDaoImpl(); //TODO: refactor,move this to gogamedao
-    	Long id = dao.saveNewGame(game);
+    	Long id = game.startNewGame();
+    //	GoGameDao dao = new GoGameSQLDaoImpl(); //TODO: refactor,move this to gogamedao
+    //	Long id = dao.saveNewGame(game);
+    //	game.turn=1; //black;
     	request.getSession().setAttribute("game", game);
+    	//TODO: the turns
     	return "tabletest";
        
     }
@@ -58,6 +58,8 @@ public class TableController {
     	
     	ClickItem item = new ClickItem(row, column);
     	game.addClick(item);
+
+    	//TODO: switch turns
     	//TODO: rename "tabletest" into something more appropriate 
     	return "tabletest";
     }
