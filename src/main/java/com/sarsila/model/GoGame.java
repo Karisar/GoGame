@@ -14,11 +14,11 @@ public class GoGame {
 	public GoGame(Long id){
 		//TODO: is there any need to get the game from db? propably not?
 		this.id=id;
-		array=new ClickItem[6][6];
+		array=new ClickItem[19][19];
 	}
 	
 	public GoGame() {
-		array=new ClickItem[6][6];
+		array=new ClickItem[19][19];
 	}
 
 	public Long getId() {
@@ -45,6 +45,14 @@ public class GoGame {
 		switchTurns();
 	}
 	
+	public void deleteClick(int row, int col){
+		ClickItemDao dao = new ClickItemSQLDaoImpl();
+		ClickItem item = array[row][col];
+		dao.deleteClickItem(item); //"delete" from the database
+		array[row][col] = null; //delete from the array
+		switchTurns(); //and switch the turn
+	}
+	
 	public void switchTurns(){
     	if (turn==1) turn=2;
     	else turn=1;
@@ -55,6 +63,11 @@ public class GoGame {
 		ClickItem item = array[row][col];
 		if (item != null) return item.getMarker(row, col);
 		else return " ";
+	}
+	
+	public boolean isCellEmpty(int row, int col){
+		if (array[row][col]==null) return true;
+		else return false;
 	}
 	
 }

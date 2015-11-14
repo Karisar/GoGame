@@ -6,5 +6,6 @@ public interface ClickItemDao {
 	
 	public Long saveClickItem(GoGame game, ClickItem item);
 	public ClickItem getClickItem(Long id);
+	public void deleteClickItem(ClickItem item);
 
 }

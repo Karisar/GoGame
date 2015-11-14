@@ -12,6 +12,7 @@ CREATIONTIME varchar(255) NOT NULL,
 ROW int NOT NULL,
 COL int NOT NULL,
 TURN int NOT NULL, //1=black, 2=white
+STATUS int NOT NULL, //1=active, 2=deleted
 GOGAME_ID int NOT NULL,
 PRIMARY KEY (ID)
 )

@@ -56,15 +56,15 @@
     <br>
     <table id="gametable"  border="1" style="border-collapse: collapse;" cellpadding="8" align="center">
     	<%@ page import="com.sarsila.model.GoGame" %>
-    	<%for(int i=1;i<=5;i++){%>
+    	<%for(int i=1;i<=18;i++){%>
 			<tr>
-			<%for(int c=1;c<=5;c++){%>
-				<td width="100px" height="100px">&nbsp;
+			<%for(int c=1;c<=18;c++){%>
+				<td width="40px" height="40px">
             <%String mark;
             GoGame go = (GoGame)session.getAttribute("game");
             mark=go.getMarker(i, c);
             %>
-            <font size="30"><%= mark %></font>
+            <font size="6"><%= mark %></font>
             
 				</td>
 			<%}%>

@@ -53,7 +53,13 @@ public class TableController {
     	GoGame game = (GoGame)request.getSession().getAttribute("game");
     	
     	ClickItem item = new ClickItem(row, column, game.turn);
-    	game.addClick(item);
+    	if (game.isCellEmpty(row, column)){
+    		game.addClick(item);
+    	}
+    	else {
+    		game.deleteClick(row, column);
+    	}
+    		
 
     	//TODO: switch turns
     	//TODO: rename "tabletest" into something more appropriate 
