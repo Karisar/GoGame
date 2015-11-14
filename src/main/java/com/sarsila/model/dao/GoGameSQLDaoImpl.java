@@ -27,9 +27,6 @@ public class GoGameSQLDaoImpl implements GoGameDao {
 		         .getConnection("jdbc:mysql://sql4.freemysqlhosting.net:3306/sql496421?"
 		             + "user=sql496421&password=J2rglKhc6i");
 
-		     // Statements allow to issue SQL queries to the database
-		  //   statement = connetion.createStatement();
-		     // PreparedStatements can use variables and are more efficient
 		     preparedStatement = connetion
 		         .prepareStatement("insert into  sql496421.gogame values (default, ?)", Statement.RETURN_GENERATED_KEYS);
 		

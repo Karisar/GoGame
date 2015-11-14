@@ -50,4 +50,11 @@ public class GoGame {
     	else turn=1;
     	
 	}
+	
+	public String getMarker(int row, int col){
+		ClickItem item = array[row][col];
+		if (item != null) return item.getMarker(row, col);
+		else return " ";
+	}
+	
 }

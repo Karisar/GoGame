@@ -19,7 +19,10 @@ public class ClickItemSQLDaoImpl implements ClickItemDao {
 	 
 	@Override
 	public Long saveClickItem(GoGame game, ClickItem item) {
-		 try {
+	    
+		Long db_id = new Long(0);
+	 	 
+		try {
 		     // This will load the MySQL driver, each DB has its own driver
 		     Class.forName("com.mysql.jdbc.Driver");
 		     // Setup the connection with the DB
@@ -31,7 +34,8 @@ public class ClickItemSQLDaoImpl implements ClickItemDao {
 		     statement = connect.createStatement();
 		     // PreparedStatements can use variables and are more efficient
 		     preparedStatement = connect
-		         .prepareStatement("insert into  sql496421.clickitem values (default, ?, ?, ?, ?, ?)");
+		         .prepareStatement("insert into  sql496421.clickitem values (default, ?, ?, ?, ?, ?)"
+		        		 , Statement.RETURN_GENERATED_KEYS);
 		
 		     Date date = new Date();
 
@@ -42,6 +46,13 @@ public class ClickItemSQLDaoImpl implements ClickItemDao {
 		     preparedStatement.setString(5, game.getId().toString());
 			  
 		     preparedStatement.executeUpdate();
+		     	     
+		     ResultSet rs = preparedStatement.getGeneratedKeys();
+		     int generatedKey = 0;
+		     if (rs.next()) {
+		         db_id = new Long(rs.getInt(1));
+		     }
+		     
 		     preparedStatement.close();
 
 		     
@@ -57,7 +68,7 @@ public class ClickItemSQLDaoImpl implements ClickItemDao {
 				e.printStackTrace();
 			}
 		   }
-		return new Long(3421);//TODO: get the id you've just inserted
+		return db_id;//TODO: get the id you've just inserted
 	}
 
 	@Override

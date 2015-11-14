@@ -7,16 +7,10 @@ public class ClickItem {
 	private Long id;
 	public int turn; //1=black, 2=white
 
-	public ClickItem(Integer row, Integer column){
+	public ClickItem(Integer row, Integer column, int turn){
 		this.row=row;
 		this.column=column;
-		//TODO: save to db
-		//TODO: add turn
-	}
-	
-	public ClickItem(Long id){
-		this.id=id;
-		//TODO: get from db
+		this.turn=turn;
 	}
 	
 	public int getRow() {
@@ -42,10 +36,10 @@ public class ClickItem {
 		return "Row:"+row +", column:"+column;
 	}
 	
-	public String marker(int row, int col)
+	public String getMarker(int row, int col)//TODO: why these parameters are here?
 	{
 		if (turn==1) return "X";
 		else if (turn==2) return "O";
-		else return null;
+		else return " ";
 	}
 }

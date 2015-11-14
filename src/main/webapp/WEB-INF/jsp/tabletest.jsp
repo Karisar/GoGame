@@ -34,12 +34,11 @@
 <script  src="http://code.jquery.com/jquery-1.9.1.min.js" ></script>     
 <script>
     $(document).ready(function(){
-        $("#myTable td").click(function() {     
+        $("#gametable td").click(function() {     
  
-            var column_num = parseInt( $(this).index() ) + 1;
+            var column_num = parseInt( $(this).index() )+1 ;
             var row_num = parseInt( $(this).parent().index() )+1;    
  
-          //  location.href='GoGame/'+row_num + "/" + column_num;
             location.href='GoGame?row='+row_num + "&col=" + column_num;
         });
     });
@@ -47,52 +46,22 @@
 </head>
 <body>
     <div id="result"> </div>
-    <table id="myTable" border="1" style="border-collapse: collapse;" cellpadding="8">
-        <!--1st ROW-->
-        <tr>
-            <td>row 1, col 1</td>
-            <td>row 1, col 2</td>
-            <td>row 1, col 3</td>
-            <td>row 1, col 4</td>
-            <td>row 1, col 5</td>
-        </tr>
- 
-        <!--2nd ROW-->
-        <tr>
-            <td>row 2, col 1</td>
-            <td>row 2, col 2</td>
-            <td>row 2, col 3</td>
-            <td>row 2, col 4</td>
-            <td>row 2, col 5</td>
-        </tr>
- 
-        <!--3rd ROW-->
-        <tr>
-            <td>row 3, col 1</td>
-            <td>row 3, col 2</td>
-            <td>row 3, col 3</td>
-            <td>row 3, col 4</td>
-            <td>row 3, col 5</td>
-        </tr>
- 
-        <!--4th ROW-->
-        <tr>
-            <td>row 4, col 1</td>
-            <td>row 4, col 2</td>
-            <td>row 4, col 3</td>
-            <td>row 4, col 4</td>
-            <td>row 4, col 5</td>
-        </tr>
- 
-        <!--5th ROW-->
-        <tr>
-            <td>row 5, col 1</td>
-            <td>row 5, col 2</td>
-            <td>row 5, col 3</td>
-            <td>row 5, col 4</td>
-            <td>row 5, col 5</td>
-        </tr>
+    <table id="gametable"  border="1" style="border-collapse: collapse;" cellpadding="8" align="center">
+    	<%@ page import="com.sarsila.model.GoGame" %>
+    	<%for(int i=1;i<=5;i++){%>
+			<tr>
+			<%for(int c=1;c<=5;c++){%>
+				<td width="100px" height="100px">&nbsp;
+            <%String mark;
+            GoGame go = (GoGame)session.getAttribute("game");
+            mark=go.getMarker(i, c);
+            %>
+            <font size="30"><%= mark %></font>
+            
+				</td>
+			<%}%>
+			</tr>
+		<%}%>
     </table>
-ID stored in the session= <%= session.getAttribute("id")%>
 </body>
 </html>

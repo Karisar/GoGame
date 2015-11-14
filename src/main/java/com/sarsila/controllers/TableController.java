@@ -56,7 +56,7 @@ public class TableController {
   
     	GoGame game = (GoGame)request.getSession().getAttribute("game");
     	
-    	ClickItem item = new ClickItem(row, column);
+    	ClickItem item = new ClickItem(row, column, game.turn);
     	game.addClick(item);
 
     	//TODO: switch turns
