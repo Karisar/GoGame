@@ -55,6 +55,7 @@ public class TableController {
     	ClickItem item = new ClickItem(row, column, game.turn);
     	if (game.isCellEmpty(row, column)){
     		game.addClick(item);
+    		game.analyzeAndClean();
     	}
     	else {
     		game.deleteClick(row, column);

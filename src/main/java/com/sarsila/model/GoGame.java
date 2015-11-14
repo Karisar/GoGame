@@ -70,4 +70,56 @@ public class GoGame {
 		else return false;
 	}
 	
+	public void analyzeAndClean(){ //TODO: maybe this could be separated into its own class
+		for (int row=1;row<=18;row++) // rows
+		{
+			for (int col=1;col<=18;col++) //cols
+			{
+				if (array[row][col] != null) // if the cell is not empty
+				{
+					ClickItem item = array[row][col];
+					boolean surrounded=true;
+					
+					for (int x=-1;x<=1;x++) // upper row
+					{
+						if (array[row-1][col+x] == null){
+							surrounded=false;
+							break;
+						}
+						else if (array[row-1][col+x].getTurn() == item.getTurn())
+						{
+							surrounded=false;
+							break;
+						}
+					}	
+					
+					for (int x=-1;x<=1;x++) // lower row
+					{
+						if (array[row+1][col+x] == null){
+							surrounded=false;
+							break;
+						}
+						else if (array[row+1][col+x].getTurn() == item.getTurn())
+						{
+							surrounded=false;
+							break;
+						}
+					}
+					if ((array[row][col-1] == null)||(array[row][col-1].getTurn() == item.getTurn())){ //on the left
+						surrounded=false;
+					}
+					
+					if ((array[row][col+1] == null)||(array[row][col+1].getTurn() == item.getTurn())){//on the right
+						surrounded=false;
+					}
+					
+					if (surrounded==true){
+						deleteClick(item.getRow(), item.getColumn());
+					}
+					
+				}
+			}
+		}
+	}
+	
 }

@@ -42,4 +42,12 @@ public class ClickItem {
 		else if (turn==2) return "O";
 		else return " ";
 	}
+
+	public int getTurn() {
+		return turn;
+	}
+
+	public void setTurn(int turn) {
+		this.turn = turn;
+	}
 }
