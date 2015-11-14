@@ -10,15 +10,19 @@ public class GoGame {
 	private ClickItem[][] array;
 	private Long id;
 	public int turn; //1=black, 2=white
+	private int table_size_rows=18; 
+	private int table_size_cols=18;
+	int blacks;
+	int whites;
 	
 	public GoGame(Long id){
 		//TODO: is there any need to get the game from db? propably not?
 		this.id=id;
-		array=new ClickItem[19][19];
+		array=new ClickItem[table_size_rows+1][table_size_cols+1];
 	}
 	
 	public GoGame() {
-		array=new ClickItem[19][19];
+		array=new ClickItem[table_size_rows+1][table_size_cols+1];
 	}
 
 	public Long getId() {
@@ -27,6 +31,14 @@ public class GoGame {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public int getWhitesCount(){
+		return whites;
+	}
+	
+	public int getBlacksCount(){
+		return blacks;
 	}
 
 	public Long startNewGame(){
@@ -40,17 +52,27 @@ public class GoGame {
 	public void addClick(ClickItem item){
 		array[item.getRow()][item.getColumn()]=item;
 		
+		//save to db
 		ClickItemDao dao = new ClickItemSQLDaoImpl();
 		dao.saveClickItem(this, item);
+		
+		//save the stastics
+		if (turn == 1) blacks++;
+		else whites++;
+		
 		switchTurns();
 	}
 	
-	public void deleteClick(int row, int col){
+	public void deleteClick(int row, int col, boolean switchTurns){
 		ClickItemDao dao = new ClickItemSQLDaoImpl();
 		ClickItem item = array[row][col];
 		dao.deleteClickItem(item); //"delete" from the database
 		array[row][col] = null; //delete from the array
-		switchTurns(); //and switch the turn
+		
+		if (item.getTurn()==1) blacks--;
+		else whites--;
+		
+		if (switchTurns) switchTurns(); //and switch the turn
 	}
 	
 	public void switchTurns(){
@@ -71,9 +93,9 @@ public class GoGame {
 	}
 	
 	public void analyzeAndClean(){ //TODO: maybe this could be separated into its own class
-		for (int row=1;row<=18;row++) // loop through the rows
+		for (int row=1;row<=table_size_rows;row++) // loop through the rows
 		{
-			for (int col=1;col<=18;col++) // loop through each cell
+			for (int col=1;col<=table_size_cols;col++) // loop through each cell
 			{
 				if (array[row][col] != null) // if the cell is not empty
 				{
@@ -83,7 +105,7 @@ public class GoGame {
 					// check the upper row
 					for (int x=-1;x<=1;x++) 
 					{
-						if (((col+x)>0) && ((col+x)<18)){ //dont check the cells "outside of the table"
+						if (((col+x)>0) && ((col+x)<table_size_cols) && ((row-1)>0)){ //dont check the cells "outside of the table"
 							if (array[row-1][col+x] == null){
 								surrounded=false;
 								break;
@@ -101,7 +123,7 @@ public class GoGame {
 					// check the lower row
 					for (int x=-1;x<=1;x++) 
 					{
-						if (((col+x)>0) && ((col+x)<19) && ((row+1)<19)){ //dont check the cells "outside of the table"
+						if (((col+x)>0) && ((col+x)<table_size_cols+1) && ((row+1)<table_size_rows+1)){ //dont check the cells "outside of the table"
 
 							if (array[row+1][col+x] == null){
 								surrounded=false;
@@ -124,7 +146,7 @@ public class GoGame {
 					}
 					
 					//dont check cells outside the table		
-					if ((col+1)<19){
+					if ((col+1)<table_size_cols+1){
 						//check the right side
 						if ((array[row][col+1] == null)||(array[row][col+1].getTurn() == item.getTurn())){
 							surrounded=false;
@@ -133,7 +155,7 @@ public class GoGame {
 					
 					//if totally surrounded, delete
 					if (surrounded==true){
-						deleteClick(item.getRow(), item.getColumn());
+						deleteClick(item.getRow(), item.getColumn(), false);
 					}
 				}
 			}

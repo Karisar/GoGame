@@ -9,6 +9,7 @@ CREATE TABLE clickitem
 (
 ID int NOT NULL AUTO_INCREMENT,
 CREATIONTIME varchar(255) NOT NULL,
+UPDATETIME varchar(255),
 ROW int NOT NULL,
 COL int NOT NULL,
 TURN int NOT NULL, //1=black, 2=white

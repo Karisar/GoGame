@@ -44,6 +44,7 @@
     });
 </script>
 </head>
+<%@ page import="com.sarsila.model.GoGame" %>
 <body>
     <div id="result"> </div>
     <table align="center" border="1" style="border-collapse: collapse;" cellpadding="8" >
@@ -53,15 +54,23 @@
     </tr>
     </table>
     <br>
+    <%
+    	GoGame go = (GoGame)session.getAttribute("game");
+    	int blacks = go.getBlacksCount();
+    	int whites = go.getWhitesCount();
+    %>
+    <center>
+	    <p>Whites (O's) = <%= whites %> points</p>
+	    <p>Blacks (X's) = <%= blacks %> points </p>
+	</center>
     <br>
     <table id="gametable"  border="1" style="border-collapse: collapse;" cellpadding="8" align="center">
-    	<%@ page import="com.sarsila.model.GoGame" %>
+    	
     	<%for(int i=1;i<=18;i++){%>
 			<tr>
 			<%for(int c=1;c<=18;c++){%>
 				<td width="40px" height="40px">
             <%String mark;
-            GoGame go = (GoGame)session.getAttribute("game");
             mark=go.getMarker(i, c);
             %>
             <font size="6"><%= mark %></font>

@@ -34,17 +34,18 @@ public class ClickItemSQLDaoImpl implements ClickItemDao {
 		     statement = connect.createStatement();
 		     // PreparedStatements can use variables and are more efficient
 		     preparedStatement = connect
-		         .prepareStatement("insert into  sql496421.clickitem values (default, ?, ?, ?, ?, ?, ?)"
+		         .prepareStatement("insert into  sql496421.clickitem values (default, ?, ?, ?, ?, ?, ?, ?)"
 		        		 , Statement.RETURN_GENERATED_KEYS);
 		
 		     Date date = new Date();
 
 		     preparedStatement.setString(1, date.toString());
-		     preparedStatement.setString(2, new Long(item.getRow()).toString());
-		     preparedStatement.setString(3, new Long(item.getColumn()).toString());
-		     preparedStatement.setString(4, new Long(game.turn).toString());
-		     preparedStatement.setString(5, "1"); // new clickitem is always active
-		     preparedStatement.setString(6, game.getId().toString());
+		     preparedStatement.setString(2, null);
+		     preparedStatement.setString(3, new Long(item.getRow()).toString());
+		     preparedStatement.setString(4, new Long(item.getColumn()).toString());
+		     preparedStatement.setString(5, new Long(game.turn).toString());
+		     preparedStatement.setString(6, "1"); // new clickitem is always active
+		     preparedStatement.setString(7, game.getId().toString());
 			  
 		     preparedStatement.executeUpdate();
 		     	     
@@ -91,8 +92,11 @@ public class ClickItemSQLDaoImpl implements ClickItemDao {
 		     // Statements allow to issue SQL queries to the database
 		     statement = connect.createStatement();
 		     // PreparedStatements can use variables and are more efficient
+		    
+		     Date date = new Date();
+
 		     preparedStatement = connect
-		         .prepareStatement("update sql496421.clickitem set status='2' where id = '" + item.getId() +"'");
+		         .prepareStatement("update sql496421.clickitem set status='2',updatetime='" + date.toString()+"' where id = '" + item.getId() +"'");
 					  
 		     preparedStatement.executeUpdate();     	     
 		     preparedStatement.close();

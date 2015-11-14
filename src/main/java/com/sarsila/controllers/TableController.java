@@ -58,7 +58,7 @@ public class TableController {
     		game.analyzeAndClean();
     	}
     	else {
-    		game.deleteClick(row, column);
+    		game.deleteClick(row, column, true);
     	}
     		
 
