@@ -36,7 +36,7 @@ public class ClickItem {
 		return "Row:"+row +", column:"+column;
 	}
 	
-	public String getMarker(int row, int col)//TODO: why these parameters are here?
+	public String getMarker(int row, int col)//TODO: remove the parameters
 	{
 		if (turn==1) return "X";
 		else if (turn==2) return "O";

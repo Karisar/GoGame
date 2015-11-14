@@ -20,9 +20,7 @@ public class GoGameSQLDaoImpl implements GoGameDao {
 	@Override
 	public Long saveNewGame(GoGame game) {
 		 try {
-		     // This will load the MySQL driver, each DB has its own driver
 		     Class.forName("com.mysql.jdbc.Driver");
-		     // Setup the connection with the DB
 		     connetion = DriverManager
 		         .getConnection("jdbc:mysql://sql4.freemysqlhosting.net:3306/sql496421?"
 		             + "user=sql496421&password=J2rglKhc6i");
@@ -36,17 +34,18 @@ public class GoGameSQLDaoImpl implements GoGameDao {
 		     preparedStatement.executeUpdate();
 		     
 		     Long db_id = new Long(0);
-		     
+
+		     // get the row id
 		     ResultSet rs = preparedStatement.getGeneratedKeys();
 		     int generatedKey = 0;
 		     if (rs.next()) {
 		         db_id = new Long(rs.getInt(1));
 		     }
 		     
+		     rs.close();
 		     preparedStatement.close();
 		     
-		     game.setId(db_id); //TODO: clean this as well, should retrieve from db
-		     
+		     game.setId(db_id); 
 		   } 
 		 catch (Exception e) {
 			   e.printStackTrace();

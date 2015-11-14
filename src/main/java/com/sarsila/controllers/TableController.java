@@ -13,17 +13,8 @@ import com.sarsila.model.dao.*;
 
 @Controller
 public class TableController {
-	/*
-    @RequestMapping(value="/GoGame", method=RequestMethod.GET)
-    public String Game(Model model) {
-        GoGame game = new GoGame();
-    	Long id = game.startNewGame();
-    	
-    	//TODO: store game id into http session
-    	
-    	return "tabletest";
-    }
-    */
+	
+
     /**
      * Initializes the game. Stores the game's unique id into the httpsession
      * @param model
@@ -35,8 +26,7 @@ public class TableController {
     	GoGame game = new GoGame();
     	Long id = game.startNewGame();
     	request.getSession().setAttribute("game", game);
-    	return "tabletest";
-       
+    	return "table";       
     }
     
     /**
@@ -60,17 +50,13 @@ public class TableController {
     	else {
     		game.deleteClick(row, column, true);
     	}
-    		
-
-    	//TODO: switch turns
-    	//TODO: rename "tabletest" into something more appropriate 
-    	return "tabletest";
+    	return "table";
     }
     
     @RequestMapping(value="/skip", method=RequestMethod.GET)
     public String Skip(Model model, HttpServletRequest request) {
     	GoGame game = (GoGame)request.getSession().getAttribute("game");
     	game.switchTurns();
-    	return "tabletest";     
+    	return "table";     
     }
 }

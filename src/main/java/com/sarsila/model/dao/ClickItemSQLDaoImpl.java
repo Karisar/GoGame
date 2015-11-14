@@ -23,16 +23,12 @@ public class ClickItemSQLDaoImpl implements ClickItemDao {
 		Long db_id = new Long(0);
 	 	 
 		try {
-		     // This will load the MySQL driver, each DB has its own driver
 		     Class.forName("com.mysql.jdbc.Driver");
-		     // Setup the connection with the DB
 		     connect = DriverManager
 		         .getConnection("jdbc:mysql://sql4.freemysqlhosting.net:3306/sql496421?"
 		             + "user=sql496421&password=J2rglKhc6i");
 
-		     // Statements allow to issue SQL queries to the database
 		     statement = connect.createStatement();
-		     // PreparedStatements can use variables and are more efficient
 		     preparedStatement = connect
 		         .prepareStatement("insert into  sql496421.clickitem values (default, ?, ?, ?, ?, ?, ?, ?)"
 		        		 , Statement.RETURN_GENERATED_KEYS);
@@ -55,9 +51,8 @@ public class ClickItemSQLDaoImpl implements ClickItemDao {
 		         db_id = new Long(rs.getInt(1));
 		     }
 		     
+		     rs.close();
 		     preparedStatement.close();
-
-		     
 		   } 
 		 catch (Exception e) {
 			   e.printStackTrace();
@@ -66,12 +61,13 @@ public class ClickItemSQLDaoImpl implements ClickItemDao {
 		 finally {
 		     try {
 				connect.close();
-			} catch (SQLException e) {
+			} 
+		     catch (SQLException e) {
 				e.printStackTrace();
 			}
 		   }
 		item.setId(db_id);
-		return db_id;//TODO: get the id you've just inserted
+		return db_id;
 	}
 
 	@Override
@@ -82,16 +78,12 @@ public class ClickItemSQLDaoImpl implements ClickItemDao {
 	
 	public void deleteClickItem(ClickItem item){
 		try {
-		     // This will load the MySQL driver, each DB has its own driver
 		     Class.forName("com.mysql.jdbc.Driver");
-		     // Setup the connection with the DB
 		     connect = DriverManager
 		         .getConnection("jdbc:mysql://sql4.freemysqlhosting.net:3306/sql496421?"
 		             + "user=sql496421&password=J2rglKhc6i");
 
-		     // Statements allow to issue SQL queries to the database
 		     statement = connect.createStatement();
-		     // PreparedStatements can use variables and are more efficient
 		    
 		     Date date = new Date();
 
@@ -100,7 +92,6 @@ public class ClickItemSQLDaoImpl implements ClickItemDao {
 					  
 		     preparedStatement.executeUpdate();     	     
 		     preparedStatement.close();
-
 		   } 
 		 catch (Exception e) {
 			   e.printStackTrace();
@@ -115,5 +106,4 @@ public class ClickItemSQLDaoImpl implements ClickItemDao {
 			}
 		   }		
 	}
-
 }

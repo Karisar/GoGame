@@ -43,7 +43,8 @@ public class GoGame {
 
 	public Long startNewGame(){
 		turn=1; //start with black
-	   	GoGameDao dao = new GoGameSQLDaoImpl(); //TODO: refactor,move this to gogamedao
+		
+	   	GoGameDao dao = new GoGameSQLDaoImpl(); 
     	Long id = dao.saveNewGame(this);
  
 		return id;
