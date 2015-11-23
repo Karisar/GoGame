@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sarsila.model.*;
-import com.sarsila.model.dao.*;
 
 @Controller
 public class TableController {

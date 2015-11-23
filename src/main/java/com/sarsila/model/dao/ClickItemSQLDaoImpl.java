@@ -12,23 +12,22 @@ import com.sarsila.model.ClickItem;
 import com.sarsila.model.GoGame;
 
 public class ClickItemSQLDaoImpl implements ClickItemDao {
-	 private Connection connect = null;
-	 private Statement statement = null;
-	 private PreparedStatement preparedStatement = null;
-	 private ResultSet resultSet = null;
 	 
 	@Override
 	public Long saveClickItem(GoGame game, ClickItem item) {
 	    
 		Long db_id = new Long(0);
-	 	 
+		Connection connect = null;
+	//	Statement statement = null;
+		PreparedStatement preparedStatement = null;
+		 
 		try {
 		     Class.forName("com.mysql.jdbc.Driver");
 		     connect = DriverManager
 		         .getConnection("jdbc:mysql://sql4.freemysqlhosting.net:3306/sql496421?"
 		             + "user=sql496421&password=J2rglKhc6i");
 
-		     statement = connect.createStatement();
+		    // statement = connect.createStatement();
 		     preparedStatement = connect
 		         .prepareStatement("insert into  sql496421.clickitem values (default, ?, ?, ?, ?, ?, ?, ?)"
 		        		 , Statement.RETURN_GENERATED_KEYS);
@@ -46,7 +45,7 @@ public class ClickItemSQLDaoImpl implements ClickItemDao {
 		     preparedStatement.executeUpdate();
 		     	     
 		     ResultSet rs = preparedStatement.getGeneratedKeys();
-		     int generatedKey = 0;
+		
 		     if (rs.next()) {
 		         db_id = new Long(rs.getInt(1));
 		     }
@@ -77,13 +76,18 @@ public class ClickItemSQLDaoImpl implements ClickItemDao {
 	}
 	
 	public void deleteClickItem(ClickItem item){
+	
+		Connection connect = null;
+		//	Statement statement = null;
+		PreparedStatement preparedStatement = null;
+		
 		try {
 		     Class.forName("com.mysql.jdbc.Driver");
 		     connect = DriverManager
 		         .getConnection("jdbc:mysql://sql4.freemysqlhosting.net:3306/sql496421?"
 		             + "user=sql496421&password=J2rglKhc6i");
 
-		     statement = connect.createStatement();
+		 //    statement = connect.createStatement();
 		    
 		     Date date = new Date();
 

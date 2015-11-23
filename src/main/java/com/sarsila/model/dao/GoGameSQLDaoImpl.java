@@ -37,7 +37,7 @@ public class GoGameSQLDaoImpl implements GoGameDao {
 
 		     // get the row id
 		     ResultSet rs = preparedStatement.getGeneratedKeys();
-		     int generatedKey = 0;
+		  
 		     if (rs.next()) {
 		         db_id = new Long(rs.getInt(1));
 		     }

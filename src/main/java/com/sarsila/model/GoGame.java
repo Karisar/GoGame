@@ -93,6 +93,18 @@ public class GoGame {
 		else return false;
 	}
 	
+	public int getTurn() {
+		return turn;
+	}
+	
+	public void setTurn(int turn) throws Exception {
+		if ((turn == 1) || (turn ==2))
+		{
+			this.turn = turn;
+		}
+		else throw new Exception("Invalid value for turn");
+	}
+	
 	public void analyzeAndClean(){ //TODO: maybe this could be separated into its own class
 		for (int row=1;row<=table_size_rows;row++) // loop through the rows
 		{

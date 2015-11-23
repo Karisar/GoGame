@@ -1,0 +1,70 @@
+package com.sarsila;
+
+import com.sarsila.model.*;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class GoGameTests {
+
+	@Test
+	public void testSetId() {
+		GoGame game = new GoGame();
+		game.setId(new Long(5));
+		assertEquals(new Long(5), game.getId());
+	}
+
+	@Test
+	public void testGetWhitesCount() {
+		GoGame game = new GoGame();
+		assertEquals(0, game.getWhitesCount());
+	}
+
+	@Test
+	public void testGetBlacksCount() {
+		GoGame game = new GoGame();
+		assertEquals(0, game.getBlacksCount());
+		}
+
+	@Test
+	public void testStartNewGame() {
+		GoGame game = new GoGame();
+		assertNotNull(game.getId());
+	}
+
+	@Test
+	public void testAddClick() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testDeleteClick() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSwitchTurns() {
+		GoGame game = new GoGame();
+		assertEquals(1, game.getTurn());
+		game.switchTurns();
+		assertEquals(2, game.getTurn());
+	}
+
+	@Test
+	public void testGetMarker() {
+		GoGame game = new GoGame();
+		game.addClick(new ClickItem(1,1,1));
+		game.addClick(new ClickItem(1,2,2));
+		assertEquals("X", game.getMarker(1, 1));
+		assertEquals("O", game.getMarker(1, 2));
+		
+		
+	}
+
+	@Test
+	public void testIsCellEmpty() {
+		fail("Not yet implemented");
+	}
+
+}
