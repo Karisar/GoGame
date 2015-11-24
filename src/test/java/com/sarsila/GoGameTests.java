@@ -30,22 +30,13 @@ public class GoGameTests {
 	@Test
 	public void testStartNewGame() {
 		GoGame game = new GoGame();
-		assertNotNull(game.getId());
-	}
-
-	@Test
-	public void testAddClick() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDeleteClick() {
-		fail("Not yet implemented");
+		assertNotNull(game.startNewGame());
 	}
 
 	@Test
 	public void testSwitchTurns() {
 		GoGame game = new GoGame();
+		game.startNewGame();
 		assertEquals(1, game.getTurn());
 		game.switchTurns();
 		assertEquals(2, game.getTurn());
@@ -64,7 +55,10 @@ public class GoGameTests {
 
 	@Test
 	public void testIsCellEmpty() {
-		fail("Not yet implemented");
+		GoGame game = new GoGame();
+		game.addClick(new ClickItem(1,1,1));
+		assertEquals(true, game.isCellEmpty(2, 2));
+		assertEquals(false, game.isCellEmpty(1, 1));
 	}
 
 }
