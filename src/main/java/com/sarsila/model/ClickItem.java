@@ -7,10 +7,11 @@ public class ClickItem {
 	private Long id;
 	public int turn; //1=black, 2=white
 
-	public ClickItem(Integer row, Integer column, int turn){
+	public ClickItem(Integer row, Integer column, int turn, Long id){
 		this.row=row;
 		this.column=column;
 		this.turn=turn;
+		this.id=id;
 	}
 	
 	public int getRow() {

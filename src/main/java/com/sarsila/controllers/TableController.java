@@ -24,8 +24,12 @@ public class TableController {
     public String Test(Model model, HttpServletRequest request) {
     	GoGame game = new GoGame();
     	Long id = game.startNewGame();
-    	request.getSession().setAttribute("game", game);
-    	return "table";       
+    	if (id != null) { // if ID is null, database connection has failed
+    		request.getSession().setAttribute("game", game); //the old way of doing this
+    		request.getSession().setAttribute("game_id", id);
+    		return "table";
+    	}
+    	else return "failure"; //TODO: add failure.jsp
     }
     
     /**
@@ -39,9 +43,11 @@ public class TableController {
     @RequestMapping(value="/GoGame", method=RequestMethod.GET)
     public String Receive(Model model, @RequestParam("row") int row, @RequestParam("col") int column, HttpServletRequest request) {
   
-    	GoGame game = (GoGame)request.getSession().getAttribute("game");
-    	
-    	ClickItem item = new ClickItem(row, column, game.turn);
+    	//GoGame game = (GoGame)request.getSession().getAttribute("game");
+    	//TODO: init game(id) from the db, dont store it in the session
+    	Long id = (Long)request.getSession().getAttribute("game_id");
+    	GoGame game = new GoGame(id);
+    	ClickItem item = new ClickItem(row, column, game.turn, null);
     	if (game.isCellEmpty(row, column)){
     		game.addClick(item);
     		game.analyzeAndClean();

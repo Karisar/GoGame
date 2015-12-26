@@ -45,8 +45,8 @@ public class GoGameTests {
 	@Test
 	public void testGetMarker() {
 		GoGame game = new GoGame();
-		game.addClick(new ClickItem(1,1,1));
-		game.addClick(new ClickItem(1,2,2));
+		game.addClick(new ClickItem(1,1,1, new Long(1)));
+		game.addClick(new ClickItem(1,2,2, new Long(2)));
 		assertEquals("X", game.getMarker(1, 1));
 		assertEquals("O", game.getMarker(1, 2));
 		
@@ -56,7 +56,7 @@ public class GoGameTests {
 	@Test
 	public void testIsCellEmpty() {
 		GoGame game = new GoGame();
-		game.addClick(new ClickItem(1,1,1));
+		game.addClick(new ClickItem(1,1,1, new Long(1)));
 		assertEquals(true, game.isCellEmpty(2, 2));
 		assertEquals(false, game.isCellEmpty(1, 1));
 	}

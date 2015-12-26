@@ -1,5 +1,7 @@
 package com.sarsila.model;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import com.sarsila.model.dao.*;
@@ -17,8 +19,17 @@ public class GoGame {
 	
 	public GoGame(Long id){
 		//TODO: is there any need to get the game from db? propably not?
+		super();
 		this.id=id;
 		array=new ClickItem[table_size_rows+1][table_size_cols+1];
+		try {
+		GoGameSQLDaoImpl dao = new GoGameSQLDaoImpl();
+		dao.getGameFromDB(this);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();//TODO: handle the exception, db connection has failed
+		}
 	}
 	
 	public GoGame() {
@@ -34,7 +45,8 @@ public class GoGame {
 	}
 	
 	public int getWhitesCount(){
-		return whites;
+		return whites; // TODO: not working now as the object is always fetched from the db. This information should be fetched from the db as well
+		//TODO: Options: 1) get count from array, 2) do an SQL select that counts the active white rows from the db with game ID 3) store these in gogame table
 	}
 	
 	public int getBlacksCount(){
@@ -43,10 +55,14 @@ public class GoGame {
 
 	public Long startNewGame(){
 		turn=1; //start with black
-		
-	   	GoGameDao dao = new GoGameSQLDaoImpl(); 
-    	Long id = dao.saveNewGame(this);
- 
+		try {
+			GoGameDao dao = new GoGameSQLDaoImpl(); 
+			Long id = dao.saveNewGame(this);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 		return id;
 	}
 	
@@ -54,8 +70,8 @@ public class GoGame {
 		array[item.getRow()][item.getColumn()]=item;
 		
 		//save to db
-		ClickItemDao dao = new ClickItemSQLDaoImpl();
-		dao.saveClickItem(this, item);
+		ClickItemDao clickDao = new ClickItemSQLDaoImpl();
+		clickDao.saveClickItem(this, item);
 		
 		//save the stastics
 		if (turn == 1) blacks++;
@@ -79,7 +95,15 @@ public class GoGame {
 	public void switchTurns(){
     	if (turn==1) turn=2;
     	else turn=1;
-    	
+    	try {
+    		GoGameDao gameDao = new GoGameSQLDaoImpl();	
+    		gameDao.updateTurn(this);
+    	}
+    	catch (Exception e)
+    	{
+    		e.printStackTrace();
+    	}
+		
 	}
 	
 	public String getMarker(int row, int col){
@@ -171,6 +195,15 @@ public class GoGame {
 						deleteClick(item.getRow(), item.getColumn(), false);
 					}
 				}
+			}
+		}
+	}
+
+	public void updateClickItems(List list) {
+		if (list.size() > 0) { // if list not empty
+			for(Object object : list) { // loop through the list
+			    ClickItem item = (ClickItem) object;
+			    array[item.getRow()][item.getColumn()]=item; // fill in the array
 			}
 		}
 	}
