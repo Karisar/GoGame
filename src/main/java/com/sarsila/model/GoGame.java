@@ -16,6 +16,7 @@ public class GoGame {
 	private int table_size_cols=18;
 	int blacks;
 	int whites;
+	//testipätkä
 	
 	public GoGame(Long id){
 		//TODO: is there any need to get the game from db? propably not?
